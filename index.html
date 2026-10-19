@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RushtoMax - Home</title>
-    <!-- Loaded via cloudflare to completely bypass jsdelivr blockages -->
+    <!-- Standalone style layer delivery from Cloudflare -->
     <link href="https://cloudflare.com" rel="stylesheet">
     <link href="https://googleapis.com" rel="stylesheet">
     <!-- Clean Cloudflare connection string for Supabase JS Client library -->
@@ -47,18 +47,18 @@
         Independent community tracking program. Not endorsed by Supercell.
     </footer>
 
-        <script>
+    <script>
         const SUPABASE_URL = "https://supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_dWNfZGZwYnVqdm9xcGpqdW55dW1yazo2YmEyYTRiOS00ZmEyLTRkYTEtOTg5MS02MDZlODQ3YWY3MzA";
         
-        // Renamed variable to supabaseClient to completely avoid naming collisions
+        // This clean library mapping ensures absolute zero naming collisions
         const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
         async function loginWithGoogle() {
             console.log("Initializing Google Connection Handshake...");
             
             if (!supabaseClient) {
-                alert("Error: Supabase library failed to load from the network CDN.");
+                alert("Error: Supabase library failed to initialize cleanly from the network.");
                 return;
             }
 
@@ -73,6 +73,6 @@
                 alert("Auth configuration error: " + error.message);
             }
         }
-        </script>
+    </script>
 </body>
 </html>
