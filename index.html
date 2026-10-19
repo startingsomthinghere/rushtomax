@@ -47,25 +47,32 @@
         Independent community tracking program. Not endorsed by Supercell.
     </footer>
 
-    <script>
+        <script>
         const SUPABASE_URL = "https://supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_dWNfZGZwYnVqdm9xcGpqdW55dW1yazo2YmEyYTRiOS00ZmEyLTRkYTEtOTg5MS02MDZlODQ3YWY3MzA";
         
-        // Target global window object context using cloudflare client mapping
-        const supabase = supabaseJS.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // Renamed variable to supabaseClient to completely avoid naming collisions
+        const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
         async function loginWithGoogle() {
             console.log("Initializing Google Connection Handshake...");
-            const { data, error } = await supabase.auth.signInWithOAuth({
+            
+            if (!supabaseClient) {
+                alert("Error: Supabase library failed to load from the network CDN.");
+                return;
+            }
+
+            const { data, error } = await supabaseClient.auth.signInWithOAuth({
                 provider: 'google',
                 options: {
                     redirectTo: window.location.origin + '/strategy.html'
                 }
             });
+            
             if (error) {
                 alert("Auth configuration error: " + error.message);
             }
         }
-    </script>
+        </script>
 </body>
 </html>
