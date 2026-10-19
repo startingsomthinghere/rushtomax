@@ -52,7 +52,7 @@
         const SUPABASE_ANON_KEY = "sb_publishable_dWNfZGZwYnVqdm9xcGpqdW55dW1yazo2YmEyYTRiOS00ZmEyLTRkYTEtOTg5MS02MDZlODQ3YWY3MzA";
         
         // Target global window object context using cloudflare client mapping
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabase = supabaseJS.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         async function loginWithGoogle() {
             console.log("Initializing Google Connection Handshake...");
