@@ -4,27 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RushtoMax - Home</title>
-    <!-- Direct, pre-compiled Tailwind CSS stylesheet delivery link -->
+    <!-- Loaded via cloudflare to completely bypass jsdelivr blockages -->
     <link href="https://cloudflare.com" rel="stylesheet">
     <link href="https://googleapis.com" rel="stylesheet">
-    <script src="https://jsdelivr.net"></script>
+    <!-- Clean Cloudflare connection string for Supabase JS Client library -->
+    <script src="https://cloudflare.com"></script>
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #1A1C23; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; margin: 0; }
         .clash-font { font-family: 'Luckiest Guy', cursive; letter-spacing: 1px; }
-        .game-card { background-color: #242834; border: 1px solid #1f2937; border-radius: 1rem; padding: 2.5rem; max-width: 28rem; w-full: 100%; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); text-align: center; margin: auto; }
+        .game-card { background-color: #242834; border: 1px solid #1f2937; border-radius: 1rem; padding: 2.5rem; max-width: 28rem; width: 100%; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); text-align: center; margin: auto; }
         .game-header { background-color: #242834; border-bottom: 1px solid #1f2937; padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3); }
-        .google-btn { width: 100%; bg-color: #ffffff; color: #111827; font-size: 0.875rem; font-weight: 700; padding: 0.875rem 1.5rem; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; gap: 0.75rem; cursor: pointer; border: none; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); transition: background-color 0.2s; }
+        .google-btn { width: 100%; background-color: #ffffff; color: #111827; font-size: 0.875rem; font-weight: 700; padding: 0.875rem 1.5rem; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; gap: 0.75rem; cursor: pointer; border: none; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); transition: background-color 0.2s; }
         .google-btn:hover { background-color: #f3f4f6; }
     </style>
 </head>
 <body class="text-gray-100">
 
-    <!-- Fixed Header layout -->
     <header class="game-header">
         <h1 class="clash-font text-yellow-500 text-3xl">⚡ RUSHTOMAX</h1>
     </header>
 
-    <!-- Centered Card Container -->
     <main class="flex-grow flex items-center justify-center p-6 w-full max-w-xl mx-auto">
         <div class="game-card">
             <h2 class="clash-font text-4xl text-white mb-2" style="color: #ffffff !important;">CHIEF LOGIN</h2>
@@ -48,12 +47,11 @@
         Independent community tracking program. Not endorsed by Supercell.
     </footer>
 
-        <script>
-        // Force global window object initialization for CDN compatibility
-        const SUPABASE_URL = "https://gfadpujvoqpjjunyumrk.supabase.co";
+    <script>
+        const SUPABASE_URL = "https://supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_dWNfZGZwYnVqdm9xcGpqdW55dW1yazo2YmEyYTRiOS00ZmEyLTRkYTEtOTg5MS02MDZlODQ3YWY3MzA";
         
-        // This is the correct way vanilla Javascript initializes the CDN client
+        // Target global window object context using cloudflare client mapping
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         async function loginWithGoogle() {
@@ -68,6 +66,6 @@
                 alert("Auth configuration error: " + error.message);
             }
         }
-        </script>
+    </script>
 </body>
 </html>
