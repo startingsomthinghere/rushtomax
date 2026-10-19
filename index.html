@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RushtoMax - Home</title>
-    <!-- Standalone style layer delivery from Cloudflare -->
+    <!-- Directly loading standard style sheets -->
     <link href="https://cloudflare.com" rel="stylesheet">
     <link href="https://googleapis.com" rel="stylesheet">
-    <!-- Clean Cloudflare connection string for Supabase JS Client library -->
-    <script src="https://cloudflare.com"></script>
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #1A1C23; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; margin: 0; }
         .clash-font { font-family: 'Luckiest Guy', cursive; letter-spacing: 1px; }
@@ -48,30 +46,14 @@
     </footer>
 
     <script>
-        const SUPABASE_URL = "https://supabase.co";
-        const SUPABASE_ANON_KEY = "sb_publishable_dWNfZGZwYnVqdm9xcGpqdW55dW1yazo2YmEyYTRiOS00ZmEyLTRkYTEtOTg5MS02MDZlODQ3YWY3MzA";
-        
-        // This clean library mapping ensures absolute zero naming collisions
-        const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+        // Directly routing auth requests using Supabase's native REST endpoints to completely bypass cross-origin blocks
+        const projectRef = "gfadpujvoqpjjunyumrk";
+        const redirectToUrl = window.location.origin + "/strategy.html";
 
-        async function loginWithGoogle() {
-            console.log("Initializing Google Connection Handshake...");
-            
-            if (!supabaseClient) {
-                alert("Error: Supabase library failed to initialize cleanly from the network.");
-                return;
-            }
-
-            const { data, error } = await supabaseClient.auth.signInWithOAuth({
-                provider: 'google',
-                options: {
-                    redirectTo: window.location.origin + '/strategy.html'
-                }
-            });
-            
-            if (error) {
-                alert("Auth configuration error: " + error.message);
-            }
+        function loginWithGoogle() {
+            console.log("Initializing Direct Network Request...");
+            // Routes the user straight to the secure login window without requiring external script libraries
+            window.location.href = `https://${projectRef}.supabase.co/auth/v1/authorize?provider=google&redirect_to=${encodeURIComponent(redirectToUrl)}`;
         }
     </script>
 </body>
