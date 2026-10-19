@@ -19,21 +19,21 @@
     </header>
     <main class="flex-grow flex items-center justify-center p-4 md:p-8">
         <div class="max-w-4xl w-full text-center">
-            <h2 class="clash-font text-3xl md:text-4xl text-white mb-2">CHOOSE YOUR STRATEGIC PATH</h2>
-            <p class="text-gray-400 text-sm max-w-lg mx-auto mb-10">No login required. Choose an objective below to initialize your mathematical optimization blueprint right away.</p>
+            <h2 class="clash-font text-3xl md:text-4xl text-white mb-2" style="color: #ffffff !important;">CHOOSE YOUR STRATEGIC PATH</h2>
+            <p class="text-gray-400 text-sm max-w-lg mx-auto mb-10">No registration required. Choose an objective below to initialize your mathematical optimization blueprint right away.</p>
             <div class="grid md:grid-cols-2 gap-8 text-left max-w-3xl mx-auto">
                 <button onclick="selectPath('rush')" class="tile-card">
                     <div class="flex justify-between items-center mb-4">
                         <span class="text-2xl">🚀</span><span class="text-[10px] bg-amber-900/40 text-amber-400 px-2 py-0.5 rounded border border-amber-800 font-bold uppercase">Speed Path</span>
                     </div>
-                    <h3 class="clash-font text-xl text-white mb-2">I WANT TO RUSH</h3>
+                    <h3 class="clash-font text-xl text-white mb-2" style="color: #ffffff !important;">I WANT TO RUSH</h3>
                     <p class="text-xs text-gray-400 leading-relaxed">Skip low-priority defenses entirely. Focus strictly on Town Hall gates, resource capacity levels, and offensive units to storm to the highest tier.</p>
                 </button>
                 <button onclick="selectPath('max')" class="tile-card">
                     <div class="flex justify-between items-center mb-4">
                         <span class="text-2xl">🛡️</span><span class="text-[10px] bg-red-900/40 text-red-400 px-2 py-0.5 rounded border border-red-800 font-bold uppercase">Recovery Path</span>
                     </div>
-                    <h3 class="clash-font text-xl text-white mb-2">I WANT TO MAX</h3>
+                    <h3 class="clash-font text-xl text-white mb-2" style="color: #ffffff !important;">I WANT TO MAX</h3>
                     <p class="text-xs text-gray-400 leading-relaxed">Recover an already messy rushed base. The calculation matrix evaluates your layout constraints to stabilize your core units system.</p>
                 </button>
             </div>
@@ -43,7 +43,7 @@
     <script>
         function selectPath(choice) {
             localStorage.setItem("selected_strategy", choice);
-            window.location.href = "/intake.html";
+            window.location.href = "/intake";
         }
     </script>
 </body>
