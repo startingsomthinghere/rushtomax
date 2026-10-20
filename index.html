@@ -9,18 +9,18 @@
 <style>
 :root{--gold:#ffd23f;--wood:#6b4423;--wood2:#3f2812;--ink:#1a0f06;--blue:#12304f}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;font-family:'Lilita One','Trebuchet MS',Impact,sans-serif;letter-spacing:.4px;color:#fff;
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;font-family:'Lilita One','Trebuchet MS',Impact,sans-serif;letter-spacing:.4px;color:#fff;
 background:radial-gradient(ellipse at 50% -10%,#2f6aa8 0,#14385e 40%,#0a1a2e 100%) fixed}
-body:after{content:"";position:fixed;left:0;right:0;bottom:0;height:90px;background:linear-gradient(#3b8a2c,#245c1a);border-top:6px solid #5db13e;z-index:-1}
 .o{text-shadow:2px 2px 0 #000,-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000}
 header{text-align:center;padding:28px 12px 8px}
 h1{margin:0;font-size:clamp(38px,9vw,76px);color:var(--gold);text-shadow:0 5px 0 #b36b00,3px 3px 0 #000,-2px -2px 0 #000,2px -2px 0 #000,-2px 2px 0 #000;transform:rotate(-1.5deg)}
 header p{margin:8px auto 0;max-width:640px;font-size:18px;color:#cfe6ff}
-main{max-width:920px;margin:0 auto;padding:12px 14px 120px}
+main{width:100%;max-width:920px;margin:0 auto;padding:12px 14px 40px;flex:1}
 .panel{background:linear-gradient(#7a4f29,var(--wood));border:5px solid var(--wood2);border-radius:16px;padding:16px;box-shadow:0 8px 0 rgba(0,0,0,.35),inset 0 0 0 3px #a8793f;margin-bottom:22px}
 .panel h2{margin:0 0 10px;font-size:22px;color:var(--gold)}
 textarea{width:100%;height:150px;border:4px solid var(--wood2);border-radius:10px;background:#f3e3bf;color:var(--ink);font:13px/1.3 Consolas,monospace;padding:10px;resize:vertical}
 .row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:10px;font-size:17px}
+select{font:inherit;padding:4px 6px;border-radius:8px;border:3px solid var(--wood2);background:#f3e3bf}select:disabled{opacity:.6}
 input[type=number]{width:62px;font:inherit;padding:4px 6px;border-radius:8px;border:3px solid var(--wood2);background:#f3e3bf}
 .hint{font-size:15px;color:#f3dcae;margin:8px 0 0}.err{color:#ffb4a8;margin-top:8px;font-size:17px;min-height:1px}
 .tiles{display:grid;grid-template-columns:1fr 1fr;gap:20px}
@@ -43,10 +43,10 @@ box-shadow:0 10px 0 rgba(0,0,0,.45),inset 0 4px 0 rgba(255,255,255,.35),inset 0 
 .task i{font-style:normal;color:#f3dcae;font-size:14px}.task em{font-style:normal;margin-left:auto;font-size:14px}
 .task input:checked~b{text-decoration:line-through;opacity:.55}
 .note{font-size:14px;color:#f3dcae;margin-top:10px;line-height:1.4}
-footer{text-align:center;font-size:13px;color:#d7e9ff;padding:0 14px 18px;position:relative}
+footer{text-align:center;font-size:15px;line-height:1.4;color:#fff;padding:26px 16px 22px;background:linear-gradient(#5db13e 0,#5db13e 8px,#3b8a2c 8px,#245c1a 100%);border-top:6px solid #2f6f21;text-shadow:1px 1px 0 #000,-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000}
 [hidden]{display:none!important}
 @media(max-width:640px){.tiles{grid-template-columns:1fr}.tile{padding:18px 12px}.tile .ic{font-size:46px}}
-@media print{body{background:#fff;color:#000}body:after,header,.btn,footer,.noprint{display:none!important}.panel{background:none;box-shadow:none;border:0;color:#000}.grp{color:#000}.task,.stat{background:none;color:#000}.task i,.task em,.stat small,.stat b,.note{color:#000}}
+@media print{body{background:#fff;color:#000}header,.btn,footer,.noprint{display:none!important}.panel{background:none;box-shadow:none;border:0;color:#000}.grp{color:#000}.task,.stat{background:none;color:#000}.task i,.task em,.stat small,.stat b,.note{color:#000}}
 </style></head>
 <body>
 <header><h1>⚡ RUSHTOMAX</h1><p class="o">Paste your village. Pick your path. Get the fastest checklist.</p></header>
@@ -56,13 +56,13 @@ footer{text-align:center;font-size:13px;color:#d7e9ff;padding:0 14px 18px;positi
   <h2>1. PASTE YOUR VILLAGE JSON</h2>
   <textarea id="json" placeholder='Paste the JSON here, it starts with {"tag":"#...'></textarea>
   <div class="row"><label>Builders <input id="bld" type="number" min="1" max="6" value="6"></label>
-   <label><input id="hf" type="checkbox"> Heroes upgrade without a builder</label></div>
+   <label>Rush to <select id="tgt" disabled><option>Paste JSON first</option></select></label></div>
   <p class="hint">In Clash of Clans: Settings → More Settings → Data Export → Copy. Everything runs in your browser; nothing is uploaded.</p>
   <div class="err" id="err"></div>
  </div>
  <div class="panel" style="background:none;border:0;box-shadow:none;padding:0"><h2 class="o" style="margin-left:6px">2. CHOOSE YOUR PATH</h2>
   <div class="tiles">
-   <button class="tile rush" id="rush"><span class="ic">🚀</span><b class="o">RUSH</b><span class="d">Fastest possible route to the top Town Hall. Skips defenses and focuses on Town Hall, economy, army and heroes.</span></button>
+   <button class="tile rush" id="rush"><span class="ic">🚀</span><b class="o">RUSH</b><span class="d">Fastest possible route to the Town Hall you pick (TH18 by default). Skips defenses and focuses on Town Hall, economy, army and heroes.</span></button>
    <button class="tile max" id="max"><span class="ic">🛡️</span><b class="o">MAX</b><span class="d">Fastest route to a fully maxed base for your Town Hall, using every builder and the lab at the same time.</span></button>
   </div></div>
 </section>
@@ -94,8 +94,8 @@ function parse(){
  const bob=(j.buildings||[]).some(b=>b.data===1000064)?1:0;
  return{inst,th:inst[1000001][0].lvl,tag:j.tag||'',builders:Math.max(1,Math.min(6,(inst[1000015]||[]).length+bob))};
 }
-function plan(s,mode,rushFirst,nb,heroFree){
- const top=D.th,rush=mode==='rush',wantTH=rush||rushFirst,tgtTH=wantTH?top:s.th,ch=[];
+function plan(s,mode,rushFirst,nb,goal){
+ const rush=mode==='rush',wantTH=rush||rushFirst,tgtTH=wantTH?goal:s.th,ch=[];
  for(const it of D.items){
   if(rush&&(it.c==='def'||it.c==='trap'))continue;
   let tgt=0;it.L.forEach(r=>{if(r[1]<=tgtTH&&(it.c!=='th'||r[0]<=tgtTH))tgt=Math.max(tgt,r[0])});
@@ -106,8 +106,8 @@ function plan(s,mode,rushFirst,nb,heroFree){
    c.dur=rows.map((r,i)=>i===0&&h.timer&&r[0]===h.lvl+1?h.timer:r[2]);c.rem=c.dur.reduce((a,b)=>a+b,0);ch.push(c)}
  }
  const thTotal=ch.filter(c=>c.it.c==='th').reduce((a,c)=>a+c.rem,0);
- const slots=[];for(let i=1;i<=nb;i++)slots.push({q:'b',l:'B'+i,free:0});slots.push({q:'l',l:'Lab',free:0},{q:'p',l:'Pet',free:0});if(heroFree)slots.push({q:'h',l:'Hero',free:0});
- const qOf=c=>c.it.k==='b'?'b':c.it.k==='r'?'l':c.it.k==='p'?'p':(heroFree?'h':'b');
+ const slots=[];for(let i=1;i<=nb;i++)slots.push({q:'b',l:'B'+i,free:0});slots.push({q:'l',l:'Lab',free:0},{q:'p',l:'Pet',free:0});
+ const qOf=c=>c.it.k==='b'?'b':c.it.k==='r'?'l':c.it.k==='p'?'p':'b';
  const W={th:s.th,lvl:{}};for(const d in s.inst)W.lvl[d]=Math.max(...s.inst[d].map(x=>x.lvl));
  let run=[],out=[],t=0;
  const done=t=>{run=run.filter(r=>{if(r.end>t)return true;r.c.busy=false;if(r.c.it.c==='th')W.th=r.row[0];if(GIDS.includes(r.c.it.d))W.lvl[r.c.it.d]=Math.max(W.lvl[r.c.it.d]||0,r.row[0]);return false})};
@@ -124,7 +124,7 @@ function plan(s,mode,rushFirst,nb,heroFree){
   c.rem-=d;c.pos++;
  }
  out.sort((a,b)=>a.s-b.s||a.q.localeCompare(b.q));
- return{out,total:rush?thTotal:Math.max(0,...out.map(o=>o.e)),nb,wantTH,rush};
+ return{out,total:rush?thTotal:Math.max(0,...out.map(o=>o.e)),nb,wantTH,rush,goal};
 }
 const fd=s=>{const d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60);return d?d+'d'+(h?' '+h+'h':''):h?h+'h'+(m?' '+m+'m':''):m+'m'};
 const fc=n=>n>=1e6?(+(n/1e6).toFixed(2))+'M':n>=1e3?(+(n/1e3).toFixed(1))+'K':''+n;
@@ -134,15 +134,15 @@ function groups(p,s0){
  for(const o of p.out){
   let key,title;
   if(p.wantTH&&o.s<tEnd){const n=ths.filter(x=>x.e<=o.s).length,L=s0+n;key='T'+L;title='While Town Hall '+L+' → '+(L+1)+' builds'}
-  else{const w=Math.floor((o.s-(p.wantTH?tEnd:0))/604800)+1;key='W'+w;title=(p.wantTH?'Week '+w+' at Town Hall '+D.th:'Week '+w)}
+  else{const w=Math.floor((o.s-(p.wantTH?tEnd:0))/604800)+1;key='W'+w;title=(p.wantTH?'Week '+w+' at Town Hall '+p.goal:'Week '+w)}
   if(!m[key]){m[key]={title,t:[]};G.push(m[key])}m[key].t.push(o);
  }
  return G;
 }
 function run(mode,rushFirst){
- const p=plan(st,mode,rushFirst,Math.max(1,Math.min(6,+$('bld').value||6)),$('hf').checked),G=groups(p,st.th);
+ const goal=+$('tgt').value||D.th,p=plan(st,mode,rushFirst,Math.max(1,Math.min(6,+$('bld').value||6)),goal),G=groups(p,st.th);
  const tot={G:0,E:0,D:0},bq={};p.out.forEach(o=>{tot[o.res]+=o.cost;bq[o.k]=(bq[o.k]||0)+o.d});
- const title=mode==='rush'?'RUSH PLAN: TH'+st.th+' → TH'+D.th:rushFirst?'RUSH TO TH'+D.th+', THEN MAX':'MAX PLAN: TH'+st.th;
+ const title=mode==='rush'?'RUSH PLAN: TH'+st.th+' → TH'+goal:rushFirst?'RUSH TO TH'+goal+', THEN MAX':'MAX PLAN: TH'+st.th;
  cur={title,G,p,tot,tag:st.tag,th:st.th};
  $('oT').textContent=title;
  $('oS').innerHTML=[['Total time',fd(p.total)],['Tasks',p.out.length],['Builders',p.nb],['Gold','🟡 '+fc(tot.G)],['Elixir','🟣 '+fc(tot.E)],['Dark Elixir','⚫ '+fc(tot.D)]].map(x=>'<div class="stat"><small>'+x[0]+'</small><b>'+x[1]+'</b></div>').join('');
@@ -150,14 +150,17 @@ function run(mode,rushFirst){
  $('oN').textContent=(mode==='rush'?'Rush plan: every Town Hall upgrade runs back to back on one builder, and the other builders, lab and pet house work on economy, army and hero upgrades in parallel, so the total time equals the sum of your remaining Town Hall timers. ':'Max plan: tasks are scheduled longest-remaining-work first across all builders, the lab and the pet house, and the lab, Hero Hall and Pet House are upgraded early so they never block research or heroes. ')+'Resources, Gold Pass, helpers, magic items, walls, and equipment ore are not modeled. Items in progress in your export are started first.';
  ['home','ask'].forEach(i=>$(i).hidden=true);$('out').hidden=false;scrollTo(0,0);
 }
+function fillTgt(th){const sel=$('tgt'),old=+sel.value;let h='';for(let l=th+1;l<=D.th;l++)h+='<option value="'+l+'">TH'+l+'</option>';
+ sel.innerHTML=h||'<option value="'+D.th+'">TH'+D.th+'</option>';sel.disabled=th>=D.th;sel.value=old>th&&old<=D.th?old:D.th}
 function go(mode){
  $('err').textContent='';
  try{st=parse()}catch(e){$('err').textContent=e;return}
+ fillTgt(st.th);
  if(mode==='rush'&&st.th>=D.th){$('err').textContent='You are already at the top Town Hall (TH'+D.th+'). Choose MAX instead.';return}
  if(mode==='max'&&st.th<D.th){
   $('askT').textContent='Your Town Hall is not the top Town Hall';
   $('askP').textContent='You are at TH'+st.th+' and the current top is TH'+D.th+'. What do you want to do?';
-  $('ask1').textContent='🚀 Rush to TH'+D.th+' first, then max';$('ask2').textContent='🛡️ Continue to max my TH'+st.th;
+  $('ask1').textContent='🚀 Rush to TH'+(+$('tgt').value||D.th)+' first, then max';$('ask2').textContent='🛡️ Continue to max my TH'+st.th;
   $('home').hidden=true;$('ask').hidden=false;return;
  }
  run(mode,false);
@@ -179,5 +182,5 @@ $('ask1').onclick=()=>run('max',true);$('ask2').onclick=()=>run('max',false);
 $('askB').onclick=()=>{$('ask').hidden=true;$('home').hidden=false};
 $('back').onclick=()=>{$('out').hidden=true;$('home').hidden=false;scrollTo(0,0)};
 $('pdf1').onclick=$('pdf2').onclick=pdf;
-$('json').addEventListener('input',()=>{try{const p=parse();$('bld').value=p.builders;$('err').textContent=''}catch(e){}});
+$('json').addEventListener('input',()=>{try{const p=parse();$('bld').value=p.builders;fillTgt(p.th);$('err').textContent=''}catch(e){}});
 </script></body></html>
