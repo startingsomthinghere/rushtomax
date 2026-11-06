@@ -1,0 +1,16 @@
+# RushtoMax
+
+> RushtoMax is a free, browser-based Clash of Clans upgrade planner. Players paste the village JSON exported from the game and get a timed checklist for the fastest way to rush to a higher Town Hall or to max their current Town Hall, with a PDF download. No sign-up is needed and village data never leaves the browser.
+
+## What it does
+- Rush: fastest route to a chosen higher Town Hall (up to Town Hall 18), running Town Hall upgrades back to back while other builders, the Laboratory and the Pet House work in parallel.
+- Max: fastest route to a fully maxed base at the current Town Hall level; if the account is below the top Town Hall it offers to rush first.
+- Storage-aware: checks that Gold, Elixir and Dark Elixir storages can hold each upgrade cost and adds the storage upgrades that are needed.
+- Limits: treats times as a lower bound; it does not track current loot, boosts, helpers, walls or hero equipment ore.
+
+## Links
+- [RushtoMax planner](https://rushtomax.vercel.app/): the tool, with a how-it-works guide and FAQ
+- [Sitemap](https://rushtomax.vercel.app/sitemap.xml)
+
+## Notes
+RushtoMax is a fan-made tool and is not affiliated with or endorsed by Supercell. Clash of Clans is a trademark of Supercell.
